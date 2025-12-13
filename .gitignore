@@ -1,0 +1,33 @@
+[Ll]ibrary/
+[Tt]emp/
+[Oo]bj/
+[Bb]uild/
+[Bb]uilds/
+[Ll]ogs/
+[Mm]emoryCaptures/
+
+UserSettings/
+
+.DS_Store
+.vs/
+.vscode/
+.idea/
+
+*.csproj
+*.sln
+*.user
+*.unityproj
+*.pidb
+*.booproj
+*.svd
+*.pdb
+*.mdb
+*.opendb
+
+sysinfo.txt
+
+# Addressables
+/Assets/AddressableAssetsData/*/*.bin*
+
+# Crashlytics
+crashlytics-build.properties

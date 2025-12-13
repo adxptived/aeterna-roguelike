@@ -19,9 +19,24 @@ public class Enemy : MonoBehaviour
 
     private float damageTimer;
 
+    [Header("Knockback")]
+    public float knockbackForce = 4f;
+    public float knockbackDuration = 0.15f;
+
+    private Rigidbody2D rb;
+    private bool isKnockedBack;
+    private float knockbackTimer;
+
+    [Header("Drops")]
+    public GameObject xpOrbPrefab;
+
+
+
     private void Awake()
     {
         hp = maxHP;
+        rb = GetComponent<Rigidbody2D>();
+
 
         GameObject playerObj = GameObject.FindGameObjectWithTag("Player");
         if (playerObj != null)
@@ -33,16 +48,28 @@ public class Enemy : MonoBehaviour
 
     private void Update()
     {
+        if (isKnockedBack)
+        {
+            knockbackTimer -= Time.deltaTime;
+            if (knockbackTimer <= 0f)
+            {
+                isKnockedBack = false;
+            }
+            return;
+        }
+
         MoveToPlayer();
     }
+
 
     void MoveToPlayer()
     {
         if (player == null) return;
 
         Vector2 dir = (player.position - transform.position).normalized;
-        transform.position += (Vector3)(dir * moveSpeed * Time.deltaTime);
+        rb.linearVelocity = dir * moveSpeed;
     }
+
 
     // 👇 КОНТАКТНЫЙ УРОН
     private void OnCollisionStay2D(Collision2D collision)
@@ -92,13 +119,30 @@ public class Enemy : MonoBehaviour
             Die();
     }
 
+    //KNOCKBACK
+    public void ApplyKnockback(Vector2 direction)
+    {
+        isKnockedBack = true;
+        knockbackTimer = knockbackDuration;
+
+        rb.linearVelocity = Vector2.zero;
+        rb.AddForce(direction.normalized * knockbackForce, ForceMode2D.Impulse);
+    }
+
+
     void Die()
     {
-        var xp = Object.FindFirstObjectByType<PlayerExperience>();
-        if (xp != null)
-            xp.AddXP(xpReward);
+        if (xpOrbPrefab != null)
+        {
+            for (int i = 0; i < xpReward; i++)
+            {
+                Vector2 offset = Random.insideUnitCircle * 0.5f;
+                Instantiate(xpOrbPrefab, transform.position + (Vector3)offset, Quaternion.identity);
+            }
+        }
 
         KillCounter.Instance?.AddKill();
         Destroy(gameObject);
     }
+
 }

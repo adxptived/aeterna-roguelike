@@ -25,7 +25,11 @@ public class PlayerCombat : MonoBehaviour
         Enemy target = FindClosestEnemy();
         if (target == null) return;
 
+        
         target.TakeDamage(damage);
+
+        Vector2 dir = (target.transform.position - transform.position).normalized;
+        target.ApplyKnockback(dir);
     }
 
     Enemy FindClosestEnemy()

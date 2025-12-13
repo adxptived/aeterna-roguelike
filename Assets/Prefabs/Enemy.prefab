@@ -174,3 +174,6 @@ MonoBehaviour:
   contactDamage: 5
   damageInterval: 0.5
   xpReward: 3
+  knockbackForce: 4
+  knockbackDuration: 0.15
+  xpOrbPrefab: {fileID: 2754772443890756872, guid: c9e1b33bf4d91a749b750c01da944173, type: 3}

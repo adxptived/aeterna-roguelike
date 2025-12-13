@@ -13,6 +13,14 @@ public class PlayerMovement : MonoBehaviour
     [Tooltip("Замедление при остановке")]
     public float deceleration = 50f;
 
+    [Header("Knockback")]
+    public float knockbackForce = 5f;
+    public float knockbackDuration = 0.15f;
+
+    private bool isKnockedBack;
+    private float knockbackTimer;
+
+
     [Header("References")]
     public SpriteRenderer spriteRenderer;
 
@@ -36,8 +44,19 @@ public class PlayerMovement : MonoBehaviour
 
     private void FixedUpdate()
     {
+        if (isKnockedBack)
+        {
+            knockbackTimer -= Time.fixedDeltaTime;
+            if (knockbackTimer <= 0f)
+            {
+                isKnockedBack = false;
+            }
+            return;
+        }
+
         ApplyMovement();
     }
+
 
     private void GatherInput()
     {
@@ -74,6 +93,16 @@ public class PlayerMovement : MonoBehaviour
 
         rb.linearVelocity = currentVelocity;
     }
+
+    public void ApplyKnockback(Vector2 direction)
+    {
+        isKnockedBack = true;
+        knockbackTimer = knockbackDuration;
+
+        rb.linearVelocity = Vector2.zero;
+        rb.AddForce(direction.normalized * knockbackForce, ForceMode2D.Impulse);
+    }
+
 
     private void UpdateSpriteDirection()
     {

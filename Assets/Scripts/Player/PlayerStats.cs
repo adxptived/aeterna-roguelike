@@ -16,18 +16,55 @@ public class PlayerStats : MonoBehaviour
 
     public int CurrentHP => currentHP;
 
+    [Header("Invulnerability")]
+    public float invulnerabilityDuration = 0.3f;
+
+    private bool isInvulnerable;
+    private float invulnerabilityTimer;
+
+
     public event Action OnDeath;
+
+    //Мигание легкое
+    private SpriteRenderer spriteRenderer;
+
+    ///------------------------------------------------------------------------------
 
     private void Awake()
     {
         currentHP = maxHP;
+        spriteRenderer = GetComponent<SpriteRenderer>();
     }
+
+    private void Update()
+    {
+        if (!isInvulnerable) return;
+
+        invulnerabilityTimer -= Time.deltaTime;
+        if (invulnerabilityTimer <= 0f)
+        {
+            isInvulnerable = false;
+        }
+        
+        if (isInvulnerable && spriteRenderer != null)
+        {
+            float alpha = Mathf.PingPong(Time.time * 10f, 1f);
+            spriteRenderer.color = new Color(1f, 1f, 1f, alpha);
+        }
+        else if (spriteRenderer != null)
+        {
+            spriteRenderer.color = Color.white;
+        }
+            }
 
     public void TakeDamage(int damage)
     {
-        Debug.Log("Took damage");
+        if (isInvulnerable) return;
+
         int finalDamage = Mathf.Max(damage - armor, 1);
         currentHP -= finalDamage;
+        Debug.Log("Took damage");
+        StartInvulnerability();
 
         if (currentHP <= 0)
         {
@@ -53,4 +90,12 @@ public class PlayerStats : MonoBehaviour
         currentHP = maxHP;
         Debug.Log("LEVEL UP! Level: " + level);
     }
+
+    void StartInvulnerability()
+    {
+        isInvulnerable = true;
+        invulnerabilityTimer = invulnerabilityDuration;
+    }
+
+
 }

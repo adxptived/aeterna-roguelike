@@ -3,7 +3,7 @@ using UnityEngine;
 public class PlayerExperience : MonoBehaviour
 {
     public int currentXP = 0;
-    public int xpToNextLevel = 10;
+    public int xpToNextLevel = 20;
 
     public float xpGrowthMultiplier = 1.4f;
 

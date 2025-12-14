@@ -12,7 +12,7 @@ public class PlayerHPUI : MonoBehaviour
     public TMP_Text hpText;
 
     [Header("Delay Settings")]
-    public float delaySpeed = 1.5f;
+    public float delaySpeed = 0.5f;
 
     private void Update()
     {

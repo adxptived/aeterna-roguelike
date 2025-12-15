@@ -16,7 +16,7 @@ public class PlayerLevelUI : MonoBehaviour
         {
             lastLevel = playerStats.level;
             levelText.text = playerStats.level.ToString();
-            
+
         }
     }
 }

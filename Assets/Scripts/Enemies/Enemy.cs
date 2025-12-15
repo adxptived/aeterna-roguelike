@@ -115,9 +115,13 @@ public class Enemy : MonoBehaviour
     public void TakeDamage(int dmg)
     {
         hp -= dmg;
+
+        DamageEvents.RaiseDamageDealt(dmg);
+
         if (hp <= 0)
             Die();
     }
+
 
     //KNOCKBACK
     public void ApplyKnockback(Vector2 direction)

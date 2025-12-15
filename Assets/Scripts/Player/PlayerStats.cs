@@ -30,6 +30,15 @@ public class PlayerStats : MonoBehaviour
 
     ///------------------------------------------------------------------------------
 
+    private void Start()
+    {
+        GetComponent<AbilityHolder>()
+            .TryAddActiveAbility<DamageAuraAbility>();
+        GetComponent<AbilityHolder>()
+            .TryAddPassiveAbility<VampirismPassive>();
+    }
+
+
     private void Awake()
     {
         currentHP = maxHP;

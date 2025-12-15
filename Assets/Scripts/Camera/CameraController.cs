@@ -131,7 +131,6 @@ public class CameraController : MonoBehaviour
             smoothedPosition.x = Mathf.Clamp(smoothedPosition.x, minBounds.x, maxBounds.x);
             smoothedPosition.y = Mathf.Clamp(smoothedPosition.y, minBounds.y, maxBounds.y);
         }
-
         
 
         // Сохраняем Z позицию

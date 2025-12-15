@@ -16,16 +16,18 @@ public class LevelUpManager : MonoBehaviour
 
     void OnLevelUp()
     {
-        Debug.Log("СПОСОБНОСТЬ ВЫДАНА");
-
-        if (possibleAbilities == null || possibleAbilities.Length == 0)
+        foreach (AbilityData data in possibleAbilities)
         {
-            Debug.LogError("possibleAbilities пуст!");
-            return;
+            bool granted = AbilityGrantService.Instance.GrantAbility(data);
+            if (granted)
+            {
+                Debug.Log("Выдана способность: " + data.name);
+                return;
+            }
         }
 
-        AbilityGrantService.Instance
-            .GrantAbility(possibleAbilities[0]);
+        Debug.Log("Нечего выдавать (все способности уже есть)");
     }
+
 
 }

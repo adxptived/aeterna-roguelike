@@ -57,11 +57,11 @@ TagManager:
   - name: Enemies
     uniqueID: 1734028683
     locked: 0
-  - name: Player
-    uniqueID: 3121553633
-    locked: 0
   - name: Effects
     uniqueID: 364460255
+    locked: 0
+  - name: Player
+    uniqueID: 3121553633
     locked: 0
   - name: UI
     uniqueID: 3961592739

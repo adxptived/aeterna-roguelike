@@ -25,6 +25,9 @@ public class PlayerStats : MonoBehaviour
 
     public event Action OnDeath;
 
+    //LEVEL UP upgrade
+    public static event Action OnLevelUp;
+
     //Мигание легкое
     private SpriteRenderer spriteRenderer;
 
@@ -32,10 +35,8 @@ public class PlayerStats : MonoBehaviour
 
     private void Start()
     {
-        GetComponent<AbilityHolder>()
-            .TryAddActiveAbility<DamageAuraAbility>();
-        GetComponent<AbilityHolder>()
-            .TryAddPassiveAbility<VampirismPassive>();
+
+
     }
 
 
@@ -95,6 +96,7 @@ public class PlayerStats : MonoBehaviour
     public void LevelUp()
     {
         level++;
+        OnLevelUp?.Invoke();
         maxHP += 10;
         currentHP = maxHP;
         Debug.Log("LEVEL UP! Level: " + level);

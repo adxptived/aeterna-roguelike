@@ -7,24 +7,36 @@ public class AbilityHolder : MonoBehaviour
     public int maxActiveAbilities = 6;
     public int maxPassiveAbilities = 5;
 
-    public readonly List<ActiveAbility> activeAbilities = new();
-    public readonly List<PassiveAbility> passiveAbilities = new();
+    private readonly List<ActiveAbility> activeAbilities = new();
+    private readonly List<PassiveAbility> passiveAbilities = new();
 
-    // -------------------------
-    // ACTIVE
-    // -------------------------
-    public bool TryAddActiveAbility<T>() where T : ActiveAbility
+    // =========================
+    // ACTIVE ABILITIES (NEW API)
+    // =========================
+    public T TryAddActiveAbility<T>(AbilityData data)
+        where T : ActiveAbility
     {
         if (activeAbilities.Count >= maxActiveAbilities)
-            return false;
+            return null;
 
         if (HasActiveAbility<T>())
-            return false;
+            return null;
 
         T ability = gameObject.AddComponent<T>();
-        activeAbilities.Add(ability);
 
-        return true;
+        if (ability is IAbilityWithData withData)
+        {
+            withData.Init(data);
+        }
+        else
+        {
+            Debug.LogError($"{typeof(T).Name} does not implement IAbilityWithData");
+            Destroy(ability);
+            return null;
+        }
+
+        activeAbilities.Add(ability);
+        return ability;
     }
 
     public bool HasActiveAbility<T>() where T : ActiveAbility
@@ -32,46 +44,7 @@ public class AbilityHolder : MonoBehaviour
         return GetComponent<T>() != null;
     }
 
-    // -------------------------
-    // PASSIVE
-    // -------------------------
-    public bool TryAddPassiveAbility<T>() where T : PassiveAbility
-    {
-        if (passiveAbilities.Count >= maxPassiveAbilities)
-            return false;
-
-        if (HasPassiveAbility<T>())
-            return false;
-
-        T ability = gameObject.AddComponent<T>();
-        passiveAbilities.Add(ability);
-
-        return true;
-    }
-
-    public bool HasPassiveAbility<T>() where T : PassiveAbility
-    {
-        return GetComponent<T>() != null;
-    }
-
-    // -------------------------
-    // REMOVE (на будущее)
-    // -------------------------
-    public void RemoveAbility(AbilityBase ability)
-    {
-        ActiveAbility active = ability as ActiveAbility;
-        if (active != null)
-        {
-            activeAbilities.Remove(active);
-        }
-
-        PassiveAbility passive = ability as PassiveAbility;
-        if (passive != null)
-        {
-            passiveAbilities.Remove(passive);
-        }
-
-        Destroy(ability);
-    }
-
+    // =========================
+    // PASSIVE (пока не трогаем)
+    // =========================
 }

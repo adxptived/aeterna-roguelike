@@ -8,13 +8,14 @@ public class DoomCandlesAbility : AuraAbility, IAbilityWithData
     {
         data = (DoomCandlesData)baseData;
 
-        radius = data.radius;
-        tickInterval = 1f; // 1 тик = 1 секунда
+        baseRadius = data.radius;
+        baseTickInterval = 1f;
+
+        ApplyModifiers();
     }
 
     protected override void ApplyEffect(Enemy enemy)
     {
-        Debug.Log("AURA");
         enemy.TakeDamage(data.damagePerSecond);
     }
 }

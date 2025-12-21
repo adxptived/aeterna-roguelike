@@ -2,15 +2,28 @@ using UnityEngine;
 
 public abstract class AuraAbility : ActiveAbility
 {
-    [Header("Aura Settings")]
+    protected float baseRadius;
+    protected float baseTickInterval;
+
     protected float radius;
-    protected float tickInterval = 1f;
+    protected float tickInterval;
 
     private float timer;
 
-    protected virtual void Start()
+    protected override void Awake()
     {
-        timer = 0f;
+        base.Awake();
+
+        ApplyModifiers();
+
+        if (modifiers != null)
+            modifiers.OnModifiersChanged += ApplyModifiers;
+    }
+
+    protected virtual void OnDestroy()
+    {
+        if (modifiers != null)
+            modifiers.OnModifiersChanged -= ApplyModifiers;
     }
 
     protected virtual void Update()
@@ -23,18 +36,6 @@ public abstract class AuraAbility : ActiveAbility
             timer = tickInterval;
         }
     }
-
-    public void ModifyRadius(float multiplier)
-    {
-        radius *= multiplier;
-    }
-
-    public void ModifyTickInterval(float multiplier)
-    {
-        tickInterval *= multiplier;
-    }
-
-
 
     void ApplyAura()
     {
@@ -52,15 +53,18 @@ public abstract class AuraAbility : ActiveAbility
         }
     }
 
-    /// <summary>
-    /// Что аура делает с конкретным врагом
-    /// </summary>
     protected abstract void ApplyEffect(Enemy enemy);
 
-    // 🧪 Для удобства отладки
-    protected virtual void OnDrawGizmosSelected()
+    protected void ApplyModifiers()
     {
-        Gizmos.color = new Color(1f, 0.5f, 0f, 0.5f);
-        Gizmos.DrawWireSphere(transform.position, radius);
+        if (modifiers == null)
+        {
+            radius = baseRadius;
+            tickInterval = baseTickInterval;
+            return;
+        }
+
+        radius = baseRadius * modifiers.auraRadiusMultiplier;
+        tickInterval = baseTickInterval * modifiers.auraTickMultiplier;
     }
 }

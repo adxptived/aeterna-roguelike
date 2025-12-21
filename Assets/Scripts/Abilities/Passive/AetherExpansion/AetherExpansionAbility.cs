@@ -8,12 +8,7 @@ public class AetherExpansionAbility : PassiveAbility, IAbilityWithData
     {
         data = (AetherExpansionData)baseData;
 
-        // Усиливаем ВСЕ AuraAbility на игроке
-        AuraAbility[] auras = GetComponents<AuraAbility>();
-        foreach (var aura in auras)
-        {
-            aura.ModifyRadius(data.radiusMultiplier);
-
-        }
+        var modifiers = GetComponent<AbilityModifiers>();
+        modifiers.ModifyAuraRadius(data.radiusMultiplier);
     }
 }

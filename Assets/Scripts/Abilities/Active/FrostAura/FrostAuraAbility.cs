@@ -7,8 +7,11 @@ public class FrostAuraAbility : AuraAbility, IAbilityWithData
     public void Init(AbilityData baseData)
     {
         data = (FrostAuraData)baseData;
-        radius = data.radius;
-        tickInterval = 1f;
+
+        baseRadius = data.radius;
+        baseTickInterval = 1f;
+
+        ApplyModifiers();
     }
 
     protected override void ApplyEffect(Enemy enemy)

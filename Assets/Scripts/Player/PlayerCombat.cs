@@ -34,7 +34,7 @@ public class PlayerCombat : MonoBehaviour
 
     Enemy FindClosestEnemy()
     {
-        Enemy[] enemies = FindObjectsOfType<Enemy>();
+        Enemy[] enemies = FindObjectsByType<Enemy>(FindObjectsSortMode.None);
         Enemy closest = null;
         float minDist = Mathf.Infinity;
 

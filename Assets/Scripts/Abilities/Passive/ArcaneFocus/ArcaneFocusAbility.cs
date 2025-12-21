@@ -8,13 +8,7 @@ public class ArcaneFocusAbility : PassiveAbility, IAbilityWithData
     {
         data = (ArcaneFocusData)baseData;
 
-        ActiveAbility[] actives = GetComponents<ActiveAbility>();
-        foreach (var ability in actives)
-        {
-            if (ability is AuraAbility aura)
-            {
-                aura.ModifyTickInterval(data.cooldownMultiplier);
-            }
-        }
+        var modifiers = GetComponent<AbilityModifiers>();
+        modifiers.ModifyAuraTick(data.cooldownMultiplier);
     }
 }

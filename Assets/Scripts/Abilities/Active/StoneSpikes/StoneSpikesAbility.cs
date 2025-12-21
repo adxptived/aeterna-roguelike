@@ -17,14 +17,14 @@ public class StoneSpikesAbility : ActiveAbility, IAbilityWithData
 
         if (timer <= 0f)
         {
-            TriggerSpikes();
+            Trigger();
             timer = data.cooldown;
         }
     }
 
-    void TriggerSpikes()
+    void Trigger()
     {
-        // 1. Наносим урон
+        // УРОН
         Collider2D[] hits = Physics2D.OverlapCircleAll(
             transform.position,
             data.radius
@@ -38,7 +38,7 @@ public class StoneSpikesAbility : ActiveAbility, IAbilityWithData
             }
         }
 
-        // 2. ВИЗУАЛЬНЫЕ СПАЙКИ
+        // ВИЗУАЛ
         SpawnVisualSpikes();
     }
 
@@ -63,11 +63,5 @@ public class StoneSpikesAbility : ActiveAbility, IAbilityWithData
 
             Destroy(spike, data.spikeLifetime);
         }
-    }
-
-    private void OnDrawGizmosSelected()
-    {
-        Gizmos.color = Color.gray;
-        Gizmos.DrawWireSphere(transform.position, data.radius);
     }
 }

@@ -1,0 +1,22 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 728d92622e6ef374a9e4ac0ee6677c85, type: 3}
+  m_Name: StoneSpikes_Default
+  m_EditorClassIdentifier: Assembly-CSharp::StoneSpikesData
+  abilityName: Stone spikes
+  description: 
+  damage: 8
+  radius: 2.2
+  cooldown: 5
+  spikePrefab: {fileID: 8233571240805952168, guid: 8ad9aab2ce65d6e41806b060634b72d8, type: 3}
+  spikeCount: 6
+  spikeLifetime: 0.4

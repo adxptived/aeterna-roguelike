@@ -22,22 +22,11 @@ public class PlayerStats : MonoBehaviour
     private bool isInvulnerable;
     private float invulnerabilityTimer;
 
-
     public event Action OnDeath;
 
-    //LEVEL UP upgrade
     public static event Action OnLevelUp;
 
-    //Мигание легкое
     private SpriteRenderer spriteRenderer;
-
-    ///------------------------------------------------------------------------------
-
-    private void Start()
-    {
-
-
-    }
 
 
     private void Awake()

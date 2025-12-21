@@ -10,6 +10,7 @@ public class AbilityHolder : MonoBehaviour
     private readonly List<ActiveAbility> activeAbilities = new();
     private readonly List<PassiveAbility> passiveAbilities = new();
 
+
     // =========================
     // ACTIVE ABILITIES (NEW API)
     // =========================
@@ -38,6 +39,34 @@ public class AbilityHolder : MonoBehaviour
         activeAbilities.Add(ability);
         return ability;
     }
+
+    public T TryAddPassiveAbility<T>(AbilityData data)
+        where T : PassiveAbility
+    {
+        if (passiveAbilities.Count >= maxPassiveAbilities)
+            return null;
+
+        if (GetComponent<T>() != null)
+            return null;
+
+        T ability = gameObject.AddComponent<T>();
+
+        if (ability is IAbilityWithData withData)
+        {
+            withData.Init(data);
+        }
+        else
+        {
+            Debug.LogError($"{typeof(T).Name} does not implement IAbilityWithData");
+            Destroy(ability);
+            return null;
+        }
+
+        passiveAbilities.Add(ability);
+        return ability;
+    }
+
+
 
     public bool HasActiveAbility<T>() where T : ActiveAbility
     {

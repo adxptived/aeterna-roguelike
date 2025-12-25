@@ -67,4 +67,17 @@ public abstract class AuraAbility : ActiveAbility
         radius = baseRadius * modifiers.auraRadiusMultiplier;
         tickInterval = baseTickInterval * modifiers.auraTickMultiplier;
     }
+
+    protected virtual void OnDrawGizmosSelected()
+    {
+        float drawRadius = Application.isPlaying ? radius : baseRadius;
+
+        if (drawRadius <= 0f)
+            drawRadius = baseRadius;
+
+        Gizmos.color = Color.cyan;
+        Gizmos.DrawWireSphere(transform.position, drawRadius);
+    }
+
+
 }

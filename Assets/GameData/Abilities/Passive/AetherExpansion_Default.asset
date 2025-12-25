@@ -14,4 +14,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::AetherExpansionData
   abilityName: Aether expansion
   description: +Radius aura
+  abilityType: 0
+  rarity: 3
+  weight: 1
+  canDropFromLevelUp: 1
   radiusMultiplier: 1.25

@@ -14,5 +14,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::DoomCandlesData
   abilityName: Doom candels
   description: Damage nearby enemies
+  abilityType: 0
+  rarity: 2
+  weight: 1
+  canDropFromLevelUp: 1
   damagePerSecond: 4
   radius: 2.5

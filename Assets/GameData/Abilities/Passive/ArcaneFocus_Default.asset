@@ -14,4 +14,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::ArcaneFocusData
   abilityName: Arcane focus
   description: -cooldown
+  abilityType: 0
+  rarity: 1
+  weight: 1
+  canDropFromLevelUp: 1
   cooldownMultiplier: 0.85

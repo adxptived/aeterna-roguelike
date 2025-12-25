@@ -14,4 +14,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::VampirismData
   abilityName: Satanic
   description: Vampirism
+  abilityType: 0
+  rarity: 4
+  weight: 1
+  canDropFromLevelUp: 1
   lifeStealPercent: 0.05

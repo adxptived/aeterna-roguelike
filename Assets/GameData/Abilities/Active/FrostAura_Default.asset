@@ -14,6 +14,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::FrostAuraData
   abilityName: Frost aura
   description: Slow aura
+  abilityType: 0
+  rarity: 2
+  weight: 1
+  canDropFromLevelUp: 1
   radius: 3
   slowMultiplier: 0.2
   slowDuration: 1.2

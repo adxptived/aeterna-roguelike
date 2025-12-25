@@ -14,6 +14,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::OrbitingBladesData
   abilityName: Orbiting Blades
   description: Blades orbit around the player
+  abilityType: 0
+  rarity: 0
+  weight: 1
+  canDropFromLevelUp: 1
   bladePrefab: {fileID: 7960060506647410727, guid: f61cbf0df30bb314f8bff6a1ab46e3ba, type: 3}
   bladeCount: 2
   damage: 5

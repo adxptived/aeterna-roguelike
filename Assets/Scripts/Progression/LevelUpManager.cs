@@ -26,7 +26,7 @@ public class LevelUpManager : MonoBehaviour
 
     void OnLevelUp()
     {
-    int newLevel = playerStats.level;
+        int newLevel = playerStats.level;
         // 1️⃣ формируем базовый пул
         List<AbilityData> basePool = new();
 
@@ -69,6 +69,7 @@ public class LevelUpManager : MonoBehaviour
             AbilityData chosen;
 
             if (slot == forcedEpicSlot)
+            
             {
                 chosen = GetRandomByRarity(tempPool, AbilityRarity.Epic);
             }
@@ -201,4 +202,20 @@ public class LevelUpManager : MonoBehaviour
 
         return list[0];
     }
+    
+    void LogAbilityChances(List<AbilityData> abilities)
+    {
+        int totalWeight = 0;
+        foreach (var a in abilities)
+            totalWeight += a.weight;
+
+        Debug.Log("📊 ABILITY CHANCES:");
+
+        foreach (var a in abilities)
+        {
+            float chance = (float)a.weight / totalWeight * 100f;
+            Debug.Log($"{a.abilityName} [{a.rarity}] → {chance:F1}%");
+        }
+    }
+
 }
